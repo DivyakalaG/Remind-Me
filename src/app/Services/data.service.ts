@@ -5,15 +5,19 @@ import { Injectable } from '@angular/core';
 })
 export class DataService {
 
+  //current user
+
+  currentUser='';
+
   constructor() { }
 
  //database
 
  userDetails:any={
 
-  Divya:{username:'Divya', mail:'ddd', password:1000},
-  Tejasswi:{username:'Tejasswi', mail:'ttt', password:1001},
-  Hari:{username:'Hari', mail:'hhh', password:1002}
+  Divya:{username:'Divya', mail:'ddd', password:1000, dashboard:[]},
+  Tejasswi:{username:'Tejasswi', mail:'ttt', password:1001, dashboard:[]},
+  Hari:{username:'Hari', mail:'hhh', password:1002, dashboard:[]}
 }
   
 register(username:any, mail:any, password:any){
@@ -26,6 +30,7 @@ register(username:any, mail:any, password:any){
       username:username,
       mail:mail,
       password:password,
+      dashboard:[]
     }
     console.log(userDetails);
 
@@ -37,6 +42,7 @@ login(uname:any, pswd:any){
   let userDetails = this.userDetails
 if(uname in userDetails){
   if(pswd==userDetails[uname]['password']){
+    this.currentUser=userDetails[uname]['username']
     return true;
   }
   else{
@@ -47,6 +53,16 @@ else{
   return false;
 }
 
+}
+
+add(data:any){
+  //alert('ok');
+  let userDetails = this.userDetails
+ userDetails['dashboard'].push({
+  Description:data
+ })
+ console.log(userDetails);
+ 
 }
 
 }

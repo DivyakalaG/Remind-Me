@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DataService } from '../Services/data.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,18 +9,33 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private router:Router) { }
+  //currentUser - to display the name 
+  user='';
+  list:any[]=[];
+ 
+
+  constructor(private router:Router, private ds:DataService) { 
+    this.user= this.ds.currentUser;
+  }
 
   ngOnInit(): void {
   }
 
-  delete()
+  delete(id:Number)
   {
-
+   console.log(id);
+   this.list = this.list.filter(data=>data.id!==id)
   }
 
-  add()
-  {
 
+  add(item:string)
+  {
+  //alert('ok')
+  this.list.push({
+    id: this.list.length,
+    name: item
+  })
+  console.log(this.list);
+  
   }
 }
